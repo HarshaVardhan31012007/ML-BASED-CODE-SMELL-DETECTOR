@@ -1,0 +1,125 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% Style definitions
+\titleformat{\section}{\large\bfseries\color{blue!80!black}}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\bfseries}{}{0em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Progress Documentation - 24CSB0B36}
+\lhead{Compiler Design Project}
+\rfoot{Page \thepage \hspace{1pt} of \pageref{LastPage}}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE \textbf{ML-Driven Code Smell Detection Compiler}} \\
+    \vspace{5pt}
+    {\large \textbf{Progress Documentation (Week-wise Report)}} \\
+    \vspace{10pt}
+    \textbf{Name:} Kunam HarshaVardhan Reddy \quad \textbf{Roll No:} 24CSB0B36 \\
+    \textbf{Course:} Compiler Design \quad \textbf{Term:} Jan'26 -- May'26
+\end{center}
+
+\vspace{10pt}
+
+\section{Phase 1: Problem Understanding \& Foundations}
+
+\subsection*{Week 1: Problem Understanding \& Background Study [Status: Completed]}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item \textbf{Activities:} Explored compiler frontend basics (Lexing $\rightarrow$ Parsing $\rightarrow$ AST). Researched code smells (God Class, Long Method) and their correlation with security vulnerabilities like SQLi and hardcoded credentials.
+    \item \textbf{Deliverables:} Problem definition and application scope report.
+\end{itemize}
+
+\subsection*{Week 2: Literature Survey \& Gap Identification [Status: Completed]}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item \textbf{Activities:} Reviewed 5+ research papers on ML-based static analysis. Identified gaps in existing rule-based linters (high false negative rates for complex nesting).
+    \item \textbf{Deliverables:} Comparative analysis table of existing tools (CodeQL, Bandit, Pylint).
+\end{itemize}
+
+\section{Phase 2: Requirements \& Design}
+
+\subsection*{Week 3: Requirements \& Threat Analysis [Status: Completed]}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item \textbf{Activities:} Defined functional requirements (AST parsing, feature extraction, ML classification). Performed Risk Analysis for insecure code patterns in Python.
+    \item \textbf{Deliverables:} Software Requirement Specification (SRS) document.
+\end{itemize}
+
+\subsection*{Week 4: Architecture \& Design Planning [Status: Completed]}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item \textbf{Activities:} Designed the modular architecture comprising an AST Visitor, a Dataset Assembler, and an Ensemble Classifier (XGBoost + Random Forest).
+    \item \textbf{Deliverables:} System architecture and module interaction diagrams.
+\end{itemize}
+
+\section{Phase 3: Core Development Phase}
+
+\subsection*{Week 5: Language / Data Model Design [Status: Completed]}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item \textbf{Activities:} Selected Python as the primary analysis target. Designed a feature vector including Halstead metrics, cyclomatic complexity, and security-specific counters.
+    \item \textbf{Deliverables:} Feature model specification and sample data formats.
+\end{itemize}
+
+\subsection*{Week 6: Parsing \& Data Ingestion [Status: Completed]}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item \textbf{Activities:} Built a robust AST generator using the \texttt{ast} module. Implemented error handling for incomplete code snippets using a context-aware fallback mechanism.
+    \item \textbf{Deliverables:} Parsing and syntax validation results.
+\end{itemize}
+
+\subsection*{Week 7: Core Static Analysis Implementation [Status: Completed]}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item \textbf{Activities:} Implemented \texttt{CodeSmellVisitor} to traverse AST and calculate metrics like max nesting depth, parameter counts, and dangerous API calls.
+    \item \textbf{Deliverables:} Functional static analysis engine and feature logs.
+\end{itemize}
+
+\subsection*{Week 8: Intermediate Representation \& Analysis [Status: Completed]}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item \textbf{Activities:} Designed IR to represent code structures across different snippets. Conducted basic control flow checks for Improper Error Handling detection.
+    \item \textbf{Deliverables:} IR design documentation and initial analysis results.
+\end{itemize}
+
+\section{Phase 4: Intelligence, Optimization \& Security}
+
+\subsection*{Week 9: ML Model Integration [Status: In Progress]}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item \textbf{Activities:} Trained an Ensemble Classifier using XGBoost and Random Forest. Successfully achieved significant F1-score improvements for "God Class" detection using RandomOverSampler.
+    \item \textbf{Deliverables:} Trained models (\texttt{.pkl}) and evaluation metrics report.
+\end{itemize}
+
+\subsection*{Week 10: Optimization \& Security Enforcement [Status: In Progress]}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item \textbf{Activities:} Optimized the feature extraction logic to be node-specific. Enhanced security scanning for Magic Strings and Hard-coded Credentials.
+    \item \textbf{Deliverables:} Security analysis report and optimized inference pipeline.
+\end{itemize}
+
+\section{Phase 5: Evaluation \& Validation (Planned)}
+
+\subsection*{Week 11: Testing \& Validation}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item Functional testing on synthetic datasets and real-world repositories.
+\end{itemize}
+
+\subsection*{Week 12: Performance \& Benchmarking}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item Comparative study against baseline tools like Bandit. Measuring Inference Latency.
+\end{itemize}
+
+\section{Phase 6: Finalization \& Presentation (Planned)}
+
+\subsection*{Week 13: Documentation}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item Finalizing project report, SHAP explainability visualizations, and user guides.
+\end{itemize}
+
+\subsection*{Week 14: Demonstration \& Evaluation}
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item Live demo of the static analysis dashboard and final viva voce.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,216 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\title{ML-Driven Code Smell Detection Compiler \\ \large Progress Documentation}
+\author{Name: Kunam HarshaVardhan Reddy \\ Roll No: 24CSB0B36 \\ Course: Compiler Design}
+\date{March 2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{PHASE 1: PROBLEM UNDERSTANDING \& FOUNDATIONS}
+
+\subsection*{Week 1 -- Problem Understanding \& Background Study}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Understand compiler architecture (Parser $\rightarrow$ AST $\rightarrow$ Analysis Passes).
+    \item Study code smells and poor coding practices.
+    \item Analyze how code smells indicate security vulnerabilities.
+    \item Understand motivation for ML-driven static analysis.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Problem definition document
+    \item Application domain and scope
+    \item Initial understanding report
+\end{itemize}
+
+\subsection*{Week 2 -- Literature Survey \& Gap Identification}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Review research papers on:
+    \begin{itemize}[noitemsep]
+        \item Code smell detection techniques
+        \item Static code analysis tools
+        \item ML-based vulnerability detection
+    \end{itemize}
+    \item Study existing approaches and tools.
+    \item Identify limitations of rule-based systems.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Literature survey table (Problem, Method, Limitations)
+    \item Comparative analysis
+    \item Identified research gap
+\end{itemize}
+
+\section*{PHASE 2: REQUIREMENTS \& DESIGN}
+
+\subsection*{Week 3 -- Requirements \& Threat Analysis}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Identify functional and non-functional requirements.
+    \item Define security, performance, and scalability constraints.
+    \item Perform threat or risk analysis for insecure code patterns.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Software Requirement Specification (SRS)
+    \item Threat / risk analysis document
+\end{itemize}
+
+\subsection*{Week 4 -- Architecture \& Design Planning}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Design overall system architecture.
+    \item Identify system modules and interactions.
+    \item Select tools, frameworks, datasets, and platforms.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item System architecture diagram
+    \item Module interaction diagram
+    \item Technology stack justification
+\end{itemize}
+
+\section*{PHASE 3: CORE DEVELOPMENT PHASE}
+
+\subsection*{Week 5 -- Language / Data Model Design}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Define supported programming languages.
+    \item Design AST-based feature and data models.
+    \item Establish input and output formats.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Data model specification
+    \item Sample inputs and outputs
+\end{itemize}
+
+\subsection*{Week 6 -- Parsing \& Data Ingestion}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Implement parser and AST generation.
+    \item Perform syntactic and basic semantic validation.
+    \item Handle error detection and reporting.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Parsing and data ingestion module
+    \item Syntax validation results
+\end{itemize}
+
+\subsection*{Week 7 -- Core Static Analysis Implementation}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Implement AST traversal algorithms.
+    \item Extract static code features.
+    \item Detect rule-based code smells.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Functional static analysis engine
+    \item Intermediate analysis logs
+\end{itemize}
+
+\subsection*{Week 8 -- Intermediate Representation \& Analysis}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Design intermediate representations.
+    \item Perform control flow and data flow analysis.
+    \item Identify insecure coding patterns.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item IR design documentation
+    \item Analysis results
+\end{itemize}
+
+\section*{PHASE 4: INTELLIGENCE, OPTIMIZATION \& SECURITY}
+
+\subsection*{Week 9 -- ML Model Integration}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Train ML models on labeled code smell datasets.
+    \item Integrate ML predictions with static analysis engine.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Trained ML model
+    \item Evaluation metrics
+\end{itemize}
+
+\subsection*{Week 10 -- Optimization \& Security Enforcement}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Optimize performance and memory usage.
+    \item Enforce secure coding constraints.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Optimized implementation
+    \item Security analysis report
+\end{itemize}
+
+\section*{PHASE 5: EVALUATION \& VALIDATION}
+
+\subsection*{Week 11 -- Testing \& Validation}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Functional testing of modules.
+    \item Stress testing and corner case evaluation.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Test cases and results
+    \item Bug-fix documentation
+\end{itemize}
+
+\subsection*{Week 12 -- Performance \& Benchmarking}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Compare with baseline static analysis tools.
+    \item Measure accuracy, efficiency, and scalability.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Comparative performance report
+    \item Graphs and metrics
+\end{itemize}
+
+\section*{PHASE 6: FINALIZATION \& PRESENTATION}
+
+\subsection*{Week 13 -- Documentation}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Prepare detailed project documentation.
+    \item Create diagrams and flowcharts.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Draft project report
+    \item Design documentation
+\end{itemize}
+
+\subsection*{Week 14 -- Demonstration \& Evaluation}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Live system demonstration.
+    \item Viva voce and evaluation.
+\end{itemize}
+\textbf{Deliverables:}
+\begin{itemize}[noitemsep]
+    \item Final report
+    \item Demo recording
+    \item Source code package
+\end{itemize}
+
+\end{document}

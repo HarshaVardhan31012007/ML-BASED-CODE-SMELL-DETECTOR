@@ -1,0 +1,141 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\usepackage{tcolorbox}
+
+% Colors for status
+\definecolor{compcolor}{RGB}{0, 128, 0}
+\definecolor{progcolor}{RGB}{255, 140, 0}
+\definecolor{plancolor}{RGB}{128, 128, 128}
+
+\titleformat{\section}{\large\bfseries\color{blue!70!black}}{}{0em}{}[\titlerule]
+\newcommand{\status}[2]{\hfill \textcolor{#1}{\textbf{[#2]}}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Progress Documentation: ML-Driven Code Smell Detection}
+\rhead{Kunam HarshaVardhan Reddy}
+\rfoot{Page \thepage \ of \pageref{LastPage}}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE \textbf{Progress Documentation:}} \\
+    \vspace{5pt}
+    {\Large \textbf{ML-Driven Code Smell Detection Compiler}} \\
+    \vspace{10pt}
+    \begin{tabular}{ll}
+        \textbf{Name:} & Kunam HarshaVardhan Reddy \\
+        \textbf{Roll No:} & 24CSB0B36 \\
+        \textbf{Course:} & Compiler Design \\
+    \end{tabular}
+\end{center}
+
+\vspace{20pt}
+
+\section*{PHASE 1: PROBLEM UNDERSTANDING \& FOUNDATIONS}
+
+\subsection*{Week 1: Problem Understanding \& Background Study \status{compcolor}{COMPLETED}}
+\textbf{What I Did:}
+\begin{itemize}[noitemsep]
+    \item Researched compiler architecture (Parser $\rightarrow$ AST $\rightarrow$ Analysis).
+    \item Studied common Python code smells (God Class, Deep Nesting) and their security implications.
+    \item Documented the motivation for using Machine Learning to augment traditional static analysis.
+\end{itemize}
+\textbf{Deliverables:} Problem definition document, Initial understanding report.
+
+\subsection*{Week 2: Literature Survey \& Gap Identification \status{compcolor}{COMPLETED}}
+\textbf{What I Did:}
+\begin{itemize}[noitemsep]
+    \item Reviewed papers on ML-based vulnerability detection (e.g., CodeQL, Bandit).
+    \item Identified limitations in rule-based systems (high false positives in complex logic).
+\end{itemize}
+\textbf{Deliverables:} Literature survey table, Comparative analysis.
+
+\section*{PHASE 2: REQUIREMENTS \& DESIGN}
+
+\subsection*{Week 3: Requirements \& Threat Analysis \status{compcolor}{COMPLETED}}
+\textbf{What I Did:}
+\begin{itemize}[noitemsep]
+    \item Identified functional requirements for AST traversal and ML prediction.
+    \item Performed risk analysis on insecure coding patterns like SQL Injection and Hard-coded Credentials.
+\end{itemize}
+\textbf{Deliverables:} Software Requirement Specification (SRS), Threat analysis document.
+
+\subsection*{Week 4: Architecture \& Design Planning \status{compcolor}{COMPLETED}}
+\textbf{What I Did:}
+\begin{itemize}[noitemsep]
+    \item Designed a modular system: Scanner (Rule-based) + ML Model (Intelligence).
+    \item Selected \texttt{XGBoost} and \texttt{RandomForest} as core algorithms for the Ensemble model.
+\end{itemize}
+\textbf{Deliverables:} System architecture diagram, Technology stack justification.
+
+\section*{PHASE 3: CORE DEVELOPMENT PHASE}
+
+\subsection*{Week 5: Language / Data Model Design \status{compcolor}{COMPLETED}}
+\textbf{What I Did:}
+\begin{itemize}[noitemsep]
+    \item Defined features to be extracted from AST: Nesting depth, parameter count, dangerous API calls, etc.
+    \item Established CSV/JSON formats for dataset assembly.
+\end{itemize}
+\textbf{Deliverables:} Data model specification, Sample input/outputs.
+
+\subsection*{Week 6: Parsing \& Data Ingestion \status{compcolor}{COMPLETED}}
+\textbf{What I Did:}
+\begin{itemize}[noitemsep]
+    \item Implemented custom parser utilizing Python's \texttt{ast} module.
+    \item Added a context-aware fallback mechanism for parsing incomplete code snippets.
+\end{itemize}
+\textbf{Deliverables:} Parsing and data ingestion module.
+
+\subsection*{Week 7: Core Static Analysis Implementation \status{compcolor}{COMPLETED}}
+\textbf{What I Did:}
+\begin{itemize}[noitemsep]
+    \item Developed the \texttt{CodeSmellVisitor} to extract structural features from code.
+    \item Implemented rule-based detection for immediate low-hanging code smells.
+\end{itemize}
+\textbf{Deliverables:} Functional static analysis engine.
+
+\subsection*{Week 8: Intermediate Representation \& Analysis \status{compcolor}{COMPLETED}}
+\textbf{What I Did:}
+\begin{itemize}[noitemsep]
+    \item Designed an internal representation of the code structure for use in the ML pipeline.
+    \item Validated feature extraction accuracy against ground-truth labels.
+\end{itemize}
+\textbf{Deliverables:} IR design documentation, Analysis logs.
+
+\section*{PHASE 4: INTELLIGENCE, OPTIMIZATION \& SECURITY}
+
+\subsection*{Week 9: ML Model Integration \status{compcolor}{COMPLETED}}
+\textbf{What I Did:}
+\begin{itemize}[noitemsep]
+    \item Developed the \texttt{EnsembleCodeSmellClassifier} merging XGBoost and Random Forest.
+    \item Implemented \texttt{RandomOverSampler} to fix data imbalance (boosting rare smells like SQL Injection).
+\end{itemize}
+\textbf{Deliverables:} Trained ML model, Evaluation metrics (Macro F1).
+
+\subsection*{Week 10: Optimization \& Security Enforcement \status{progcolor}{IN PROGRESS}}
+\textbf{What I Did:}
+\begin{itemize}[noitemsep]
+    \item Refined feature extraction to be "Node-Specific" (targeting specific lines/functions).
+    \item Optimized inference pipeline to resolve column mismatch errors.
+\end{itemize}
+\textbf{Deliverables:} Optimized implementation, Security analysis report.
+
+\section*{PHASE 5: EVALUATION \& VALIDATION}
+
+\subsection*{Week 11: Testing \& Validation \status{plancolor}{PLANNED}}
+\subsection*{Week 12: Performance \& Benchmarking \status{plancolor}{PLANNED}}
+
+\section*{PHASE 6: FINALIZATION \& PRESENTATION}
+
+\subsection*{Week 13: Documentation \status{plancolor}{PLANNED}}
+\subsection*{Week 14: Demonstration \& Evaluation \status{plancolor}{PLANNED}}
+
+\end{document}

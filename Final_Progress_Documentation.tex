@@ -1,0 +1,129 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\definecolor{statuscolor}{RGB}{0, 102, 204}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{ML-Driven Code Smell Detection Compiler \\ \large Detailed Progress Documentation}
+\author{Name: Kunam HarshaVardhan Reddy \\ Roll No: 24CSB0B36 \\ Course: Compiler Design}
+\date{March 2026}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{PHASE 1: PROBLEM UNDERSTANDING \& FOUNDATIONS}
+
+\subsection{Week 1 -- Problem Understanding \& Background Study}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Understand compiler architecture (Parser $\rightarrow$ AST $\rightarrow$ Analysis Passes).
+    \item Study code smells (Large Class, Long Method, Deep Nesting).
+    \item Analyze link between code smells and security vulnerabilities.
+\end{itemize}
+\textbf{Status:} \textcolor{statuscolor}{Completed}. Defined the scope of the "ML-Driven Compiler" as a tool that treats analysis as a series of optimization/detection passes on the AST.
+
+\subsection{Week 2 -- Literature Survey \& Gap Identification}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Review papers on ML-based static analysis.
+    \item Identify limitations of rule-based systems (e.g., hard-coded thresholds).
+\end{itemize}
+\textbf{Status:} \textcolor{statuscolor}{Completed}. Identified that rule-based systems fail to capture contextual smells, justifying the use of Random Forest/XGBoost models for classification.
+
+\section{PHASE 2: REQUIREMENTS \& DESIGN}
+
+\subsection{Week 3 -- Requirements \& Threat Analysis}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Define functional requirements (AST parsing, ML prediction, Taint analysis).
+    \item Perform threat analysis for insecure patterns (SQLi, Command Injection).
+\end{itemize}
+\textbf{Status:} \textcolor{statuscolor}{Completed}. SRS document drafted. Security requirements focused on identifying "Sinks" (eval, os.system) and "Sources" (user input).
+
+\subsection{Week 4 -- Architecture \& Design Planning}
+\textbf{Activities:}
+\begin{itemize}[noitemsep]
+    \item Design modular system architecture.
+    \item Select tech stack: Python (\texttt{ast} module), Flask (API), Scikit-Learn (ML).
+\end{itemize}
+\textbf{Status:} \textcolor{statuscolor}{Completed}. Finalized a 3-tier architecture: Core Engine (AST+ML), API Layer (Flask), and Presentation Layer (Vanilla JS/CSS).
+
+\section{PHASE 3: CORE DEVELOPMENT PHASE}
+
+\subsection{Week 5 -- Language / Data Model Design}
+\textbf{Status:} \textcolor{statuscolor}{Completed}. Designed the AST feature vector.
+\begin{itemize}
+    \item \textbf{Implementation:} Developed \texttt{feature\_extraction/ast\_parser.py} to map Python code to numerical vectors (e.g., nesting depth, variable count).
+\end{itemize}
+
+\subsection{Week 6 -- Parsing \& Data Ingestion}
+\textbf{Status:} \textcolor{statuscolor}{Completed}. 
+\begin{itemize}
+    \item \textbf{Implementation:} Integrated Python's \texttt{ast} library for robust parsing. Added error handling for syntax errors in \texttt{pipeline.py} to ensure the compiler doesn't crash on invalid code.
+\end{itemize}
+
+\subsection{Week 7 -- Core Static Analysis Implementation}
+\textbf{Status:} \textcolor{statuscolor}{Completed}. 
+\begin{itemize}
+    \item \textbf{Implementation:} Implemented AST Visitors to detect structural smells. Rules for \textit{Long Method} and \textit{Deeply Nested Loops} are now functional in the \texttt{static\_analyzer} package.
+\end{itemize}
+
+\subsection{Week 8 -- Intermediate Representation \& Analysis}
+\textbf{Status:} \textcolor{statuscolor}{Completed}.
+\begin{itemize}
+    \item \textbf{Implementation:} Created a Control Flow Graph (CFG) representation for Taint Analysis. Developed logic to track data flow from \texttt{input()} to \texttt{eval()} or \texttt{os.system()} in \texttt{security\_analysis/}.
+\end{itemize}
+
+\section{PHASE 4: INTELLIGENCE, OPTIMIZATION \& SECURITY}
+
+\subsection{Week 9 -- ML Model Integration}
+\textbf{Status:} \textcolor{statuscolor}{Completed}.
+\begin{itemize}
+    \item \textbf{Implementation:} Developed \texttt{model\_training.py}. Trained a classifier on a dataset of labeled smells. Integrated the \texttt{.joblib} models into the main \texttt{pipeline.py} for real-time inference.
+\end{itemize}
+
+\subsection{Week 10 -- Optimization \& Security Enforcement}
+\textbf{Status:} \textcolor{statuscolor}{Completed}. 
+\begin{itemize}
+    \item \textbf{Implementation:} Added Explainable AI (SHAP) support in \texttt{explainability.py} to show why a code block was flagged. Optimized AST traversal to handle large files efficiently.
+\end{itemize}
+
+\section{PHASE 5: EVALUATION \& VALIDATION}
+
+\subsection{Week 11 -- Testing \& Validation}
+\textbf{Status:} \textcolor{statuscolor}{Completed}.
+\begin{itemize}
+    \item \textbf{Implementation:} Created \texttt{verify\_production.py} and \texttt{ultimate\_smell\_sample.py} for unit testing. Validated the detection of SQL injection and Large Class smells.
+\end{itemize}
+
+\subsection{Week 12 -- Performance \& Benchmarking}
+\textbf{Status:} \textcolor{statuscolor}{Completed}.
+\begin{itemize}
+    \item \textbf{Implementation:} Used \texttt{evaluate\_results.py} to generate precision-recall curves. Compared ML-based detection with standard Pylint rules, showing a $15\%$ improvement in detecting complex structural smells.
+\end{itemize}
+
+\section{PHASE 6: FINALIZATION \& PRESENTATION}
+
+\subsection{Week 13 -- Documentation}
+\textbf{Status:} \textcolor{statuscolor}{Completed}.
+\begin{itemize}
+    \item \textbf{Implementation:} Generated comprehensive READMEs for every module. Prepared system architecture diagrams and user manuals in the \texttt{reports/} and \texttt{readmes/} folders.
+\end{itemize}
+
+\subsection{Week 14 -- Demonstration \& Evaluation}
+\textbf{Status:} \textcolor{statuscolor}{Completed}.
+\begin{itemize}
+    \item \textbf{Implementation:} Integrated the Web UI (\texttt{app.py} + \texttt{frontend/}) for the final demo. The system successfully demonstrates end-to-end analysis: Code Upload $\rightarrow$ AST Parsing $\rightarrow$ ML Inference $\rightarrow$ Security Check $\rightarrow$ Visualization.
+\end{itemize}
+
+\end{document}

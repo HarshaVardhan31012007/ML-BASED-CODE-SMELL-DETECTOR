@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Code Smell Compiler | Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-wrapper">
+                <div class="pulse"></div>
+                <h1>CodeSmell<span>AI</span></h1>
+            </div>
+            <p class="subtitle">Production-Grade ML-Driven Code Analysis</p>
+        </header>
+
+        <main>
+            <section class="editor-section">
+                <div class="editor-card glass">
+                    <div class="editor-header">
+                        <div class="status-dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <button class="analyze-btn" id="analyzeBtn">Run Deep Analysis</button>
+                    </div>
+                    <textarea id="codeInput" placeholder="# Paste your Python code here for ML analysis...
+def process_data(data):
+    # Potential smell: Long method example
+    print('Processing...')
+    # ... more code ...
+"></textarea>
+                </div>
+            </section>
+
+            <aside class="sidebar">
+                <div class="stats-card glass">
+                    <div class="stat-value" id="smellCount">0</div>
+                    <div class="stat-label">Detected Issues</div>
+                </div>
+
+                <div class="results-card glass">
+                    <div class="editor-header">
+                        <span style="font-weight:600">Analysis Results</span>
+                    </div>
+                    <div id="results" class="results-list">
+                        <div class="clean">Ready to analyze...</div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="overlay hidden">
+        <span class="loader"></span>
+        <p style="margin-top:20px; color:white; font-weight:600">Analyzing AST & Running Ensemble Model...</p>
+    </div>
+
+    <script>
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const codeInput = document.getElementById('codeInput');
+        const results = document.getElementById('results');
+        const smellCount = document.getElementById('smellCount');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        analyzeBtn.addEventListener('click', async () => {
+            const code = codeInput.value.trim();
+            if (!code) return;
+
+            // UI State: Loading
+            loadingOverlay.classList.remove('hidden');
+            analyzeBtn.disabled = true;
+            results.innerHTML = '';
+
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+                
+                const data = await response.json();
+                renderResults(data);
+            } catch (err) {
+                results.innerHTML = `<div class="clean" style="color:var(--accent)">Connection Error: ${err.message}</div>`;
+            } finally {
+                loadingOverlay.classList.add('hidden');
+                analyzeBtn.disabled = false;
+            }
+        });
+
+        function renderResults(data) {
+            results.innerHTML = '';
+            let total = 0;
+
+            // Handle Security Smells
+            if (data.security_smells && data.security_smells.length > 0) {
+                data.security_smells.forEach(s => {
+                    const div = createResultNode(s, 'security');
+                    results.appendChild(div);
+                    total++;
+                });
+            }
+
+            // Handle ML Predictions
+            if (data.ml_predictions && data.ml_predictions.length > 0) {
+                data.ml_predictions.forEach(s => {
+                    const div = createResultNode(s, 'ml');
+                    results.appendChild(div);
+                    total++;
+                });
+            }
+
+            smell_count_val = total;
+            smellCount.innerText = total;
+            
+            if (total === 0) {
+                results.innerHTML = '<div class="clean">No code smells detected! ✨</div>';
+            }
+        }
+
+        function createResultNode(smell, category) {
+            const div = document.createElement('div');
+            div.className = 'result-item';
+            
+            const tagClass = category === 'ml' ? 'tag-ml' : 'tag-security';
+            const categoryName = category.toUpperCase();
+            
+            let html = `
+                <div class="type-tag ${tagClass}">${categoryName} | ${smell.smell_type}</div>
+                <div class="item-title">Line ${smell.line}</div>
+                <div class="item-desc">${smell.message || 'Potential code smell detected.'}</div>
+            `;
+
+            if (smell.explanation) {
+                html += `
+                    <div class="shap-container">
+                        <img src="data:image/png;base64,${smell.explanation}" class="shap-img" alt="SHAP Plot">
+                    </div>
+                `;
+            }
+
+            div.innerHTML = html;
+            return div;
+        }
+    </script>
+</body>
+</html>

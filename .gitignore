@@ -1,0 +1,5 @@
+dataset/
+models/
+*.pkl
+*.csv
+*.json
